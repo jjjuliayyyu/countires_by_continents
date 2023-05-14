@@ -54,6 +54,51 @@ searchBtn.addEventListener("click", () => {
   .then((allCountriesCodes) => {
     let randomCountriesCodes = getRandomElements(allCountriesCodes, numberOfCountries)
     let countriesNames = randomCountriesCodes.map((country) => {return country.name})
-    console.log(countriesNames.sort())
+    return countriesNames.sort()
+  })
+  .then((countries) => {
+    countries.forEach((country) => {
+      let url = `https://restcountries.com/v3.1/name/${country}?fullText=true`
+      fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        cards.innerHTML += `
+        <div class="card">
+          <img src="${data[0].flags.svg}" class="flag-img">
+          <h4>${data[0].name.common}</h4>
+          <div class="data-wrapper">
+            <h5>Official Name:</h5>
+            <span>${data[0].name.official}</span>
+          </div>
+          <div class="data-wrapper">
+            <h5>Capital:</h5>
+            <span>${data[0].capital[0]}</span>
+          </div>
+          <div class="data-wrapper">
+            <h5>Population:</h5>
+            <span>${data[0].population}</span>
+          </div>
+          <div class="data-wrapper">
+            <h5>Currency:</h5>
+            <span>
+              ${Object.keys(data[0].currencies)[0]}
+            </span>
+          </div>
+          <div class="data-wrapper">
+            <h5>Subregion:</h5>
+            <span>${data[0].subregion}</span>
+          </div>
+          <div class="data-wrapper">
+            <h5>Languages:</h5>
+            <span>${Object.values(data[0].languages)
+              .toString()
+              .split(",")
+              .join(", ")}
+            </span>
+          </div>
+        </div>
+      `
+      })
+    })
   })
 })
