@@ -1,6 +1,7 @@
 const searchBtn = document.getElementById("search-btn")
 const continentSelect = document.getElementById("continent-select")
 const numberOfCountriesInp = document.getElementById("number-of-countries-inp")
+const loadingIndicator = document.getElementById("loading-indicator")
 const serachValidator = document.getElementById("serach-validator")
 
 const getRandomElements = (arr, numElements) => {
@@ -122,6 +123,8 @@ searchBtn.addEventListener("click", () => {
   let numberOfCountries = parseInt(numberOfCountriesInp.value)
   validateNumberOfCountries(numberOfCountries)
 
+  loadingIndicator.style.display = "flex"
+
   let continentName = continentSelect.value
   let continentCode = continentsCodeNameMap[continentName]
 
@@ -134,4 +137,5 @@ searchBtn.addEventListener("click", () => {
   .then((countries) => {
     makeCountriesCards(countries)
   })
+  .then(() => {loadingIndicator.style.display = "none"})
 })
