@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Countries by Continents</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.2/css/all.css">
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <!-- search section -->
+  <div class="search-bar">
+    <select id="continent-select">
+      <option value="Africa">Africa</option>
+      <option value="Antarctica">Antarctica</option>
+      <option value="Asia">Asia</option>
+      <option value="Europe">Europe</option>
+      <option value="North America">North America</option>
+      <option value="Oceania">Oceania</option>
+      <option value="South America">South America</option>
+    </select>
+    <input
+      type="text"
+      id="number-of-countries-inp"
+      placeholder="2-10"
+    />
+    <a id="search-btn" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+  </div>
+  <div class="text-center" id="serach-validator"></div>
+
+  <!-- countries info crads section -->
+  <div id="cards">
+  </div>
+
+  <!-- script -->
+  <script src="script.js"></script>
+</body>
+</html>
