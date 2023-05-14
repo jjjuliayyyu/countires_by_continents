@@ -9,6 +9,10 @@
   flex-wrap: wrap;
 }
 
+#serach-validator {
+  margin-top: 126px;
+}
+
 #continent-select {
   padding: 12px 24px;
   border-radius: 12px 0px 0px 12px;
