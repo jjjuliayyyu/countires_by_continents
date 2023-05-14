@@ -1,0 +1,36 @@
+#cards {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 126px;
+  flex-wrap: wrap;
+}
+
+.card img {
+  width: 160px;
+}
+
+.card {
+  width: 200px;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgb(230,230,230);
+  text-align: center;
+  padding: 40px;
+  margin: 20px;
+  border: 1px solid rgb(230,230,230);
+}
+
+.card h4 {
+  margin: 16px 0;
+}
+
+.card h5 {
+  text-align: start;
+}
+
+.data-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+  gap: 16px;
+}
