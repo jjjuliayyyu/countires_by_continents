@@ -1,6 +1,7 @@
 const searchBtn = document.getElementById("search-btn")
 const continentSelect = document.getElementById("continent-select")
 const numberOfCountriesInp = document.getElementById("number-of-countries-inp")
+const serachValidator = document.getElementById("serach-validator")
 
 const getRandomElements = (arr, numElements) => {
   if (numElements > arr.length) {
@@ -14,6 +15,12 @@ const getRandomElements = (arr, numElements) => {
     }
   }
   return randomElements
+}
+const validateNumberOfCountries = (numberOfCountries) => {
+  if (numberOfCountries > 10 || numberOfCountries < 2) {
+    serachValidator.innerHTML = `<h5>The number of countries should be in the range of 2 to 10.</h5>`
+    throw new Error("The number of countries should be in the range of 2 to 10.")
+  }
 }
 const continentsCodeNameMap = {
   "Africa": "AF",
@@ -29,6 +36,7 @@ searchBtn.addEventListener("click", () => {
   cards.innerHTML = ``
 
   let numberOfCountries = parseInt(numberOfCountriesInp.value)
+  validateNumberOfCountries(numberOfCountries)
 
   let continentName = continentSelect.value
   let continentCode = continentsCodeNameMap[continentName]
