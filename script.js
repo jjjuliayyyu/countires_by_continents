@@ -62,9 +62,7 @@ const makeCountryCard = (flag, commonName, officialName, capital, population, cu
     </div>
     <div class="data-wrapper">
       <h5>Currency:</h5>
-      <span>
-        ${currencies}
-      </span>
+      <span>${currencies}</span>
     </div>
     <div class="data-wrapper">
       <h5>Subregion:</h5>
@@ -72,8 +70,7 @@ const makeCountryCard = (flag, commonName, officialName, capital, population, cu
     </div>
     <div class="data-wrapper">
       <h5>Languages:</h5>
-      <span>${languages}
-      </span>
+      <span>${languages}</span>
     </div>
   </div>
   `
@@ -119,15 +116,11 @@ const continentsCodeNameMap = {
 searchBtn.addEventListener("click", () => {
   cards.innerHTML = ``
   serachValidator.innerHTML = ``
-
   let numberOfCountries = parseInt(numberOfCountriesInp.value)
   validateNumberOfCountries(numberOfCountries)
-
   loadingIndicator.style.display = "flex"
-
   let continentName = continentSelect.value
   let continentCode = continentsCodeNameMap[continentName]
-
   fetchCountriesFromContinent(continentCode)
   .then((allCountriesCodes) => {
     let randomCountriesCodes = getRandomElements(allCountriesCodes, numberOfCountries)
