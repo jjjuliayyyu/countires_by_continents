@@ -1,0 +1,44 @@
+.search-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 40px 0;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#continent-select {
+  padding: 12px 24px;
+  border-radius: 12px 0px 0px 12px;
+  border: none;
+  border-left: 1px solid rgb(230,230,230);
+  border-top: 1px solid rgb(230,230,230);
+  border-bottom: 1px solid rgb(230,230,230);
+  outline: none;
+  color: #000000;
+}
+
+#number-of-countries-inp {
+  width: 40px;
+  padding: 12px 24px;
+  border-radius: 0px;
+  border: none;
+  border-top: 1px solid rgb(230,230,230);
+  border-bottom: 1px solid rgb(230,230,230);
+  outline: none;
+  color: #000000;
+}
+
+#search-btn {
+  padding: 12px 32px;
+  border-radius: 0px 12px 12px 0px;
+  display: inline-block;
+  background-color: #1EDD88;
+  color: white;
+}
+
+#search-btn:hover {
+  background-color: #0bca74;
+}

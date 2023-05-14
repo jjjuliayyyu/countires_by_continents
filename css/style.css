@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@600');
+@import url(components/cards.css);
+@import url(components/searchbar.css);
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Open Sans;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: Poppins;
+}
+
+span {
+  font-size: small;
+  text-align: end;
+}
+
+a {
+  text-decoration: none;
+}
+
+.text-center {
+  text-align: center;
+}
