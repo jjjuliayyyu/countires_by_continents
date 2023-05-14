@@ -22,25 +22,7 @@ const validateNumberOfCountries = (numberOfCountries) => {
     throw new Error("The number of countries should be in the range of 2 to 10.")
   }
 }
-const continentsCodeNameMap = {
-  "Africa": "AF",
-  "Antarctica": "AN",
-  "Asia": "AS",
-  "Europe": "EU",
-  "North America": "NA",
-  "Oceania": "OC",
-  "South America": "SA"
-}
-
-searchBtn.addEventListener("click", () => {
-  cards.innerHTML = ``
-
-  let numberOfCountries = parseInt(numberOfCountriesInp.value)
-  validateNumberOfCountries(numberOfCountries)
-
-  let continentName = continentSelect.value
-  let continentCode = continentsCodeNameMap[continentName]
-
+const fetchCountriesFromContinent = (continentCode) => {
   let url = "https://countries.trevorblades.com/graphql"
   return fetch(url, {
     method: "POST",
@@ -59,54 +41,97 @@ searchBtn.addEventListener("click", () => {
   })
   .then((res) => res.json())
   .then((data) => data.data.continent.countries)
+}
+const makeCountryCard = (flag, commonName, officialName, capital, population, currencies, subregion, languages) => {
+  cards.innerHTML += `
+  <div class="card">
+    <img src="${flag}" class="flag-img">
+    <h4>${commonName}</h4>
+    <div class="data-wrapper">
+      <h5>Official Name:</h5>
+      <span>${officialName}</span>
+    </div>
+    <div class="data-wrapper">
+      <h5>Capital:</h5>
+      <span>${capital}</span>
+    </div>
+    <div class="data-wrapper">
+      <h5>Population:</h5>
+      <span>${population}</span>
+    </div>
+    <div class="data-wrapper">
+      <h5>Currency:</h5>
+      <span>
+        ${currencies}
+      </span>
+    </div>
+    <div class="data-wrapper">
+      <h5>Subregion:</h5>
+      <span>${subregion}</span>
+    </div>
+    <div class="data-wrapper">
+      <h5>Languages:</h5>
+      <span>${languages}
+      </span>
+    </div>
+  </div>
+  `
+}
+const makeCountriesCards = (countries) => {
+  countries.forEach((country) => {
+    let url = `https://restcountries.com/v3.1/name/${country}?fullText=true`
+    fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      let flag = data[0].flags.svg
+      let commonName = data[0].name.common
+      let officialName = data[0].name.official
+      let capital = data[0].capital[0]
+      let population =data[0].population
+      let currencies = Object.keys(data[0].currencies)[0]
+      let subregion = data[0].subregion
+      let languages = Object.values(data[0].languages)
+      .toString()
+      .split(",")
+      .join(", ")
+      makeCountryCard(flag, commonName, officialName, capital, population, currencies, subregion, languages)
+    })
+    .catch((e) => {
+      cards.innerHTML += `
+        <div class="card">
+          <h4>No information found about ${country}!</h4>
+        </div>
+      `
+    })
+  })
+}
+const continentsCodeNameMap = {
+  "Africa": "AF",
+  "Antarctica": "AN",
+  "Asia": "AS",
+  "Europe": "EU",
+  "North America": "NA",
+  "Oceania": "OC",
+  "South America": "SA"
+}
+
+searchBtn.addEventListener("click", () => {
+  cards.innerHTML = ``
+  serachValidator.innerHTML = ``
+
+  let numberOfCountries = parseInt(numberOfCountriesInp.value)
+  validateNumberOfCountries(numberOfCountries)
+
+  let continentName = continentSelect.value
+  let continentCode = continentsCodeNameMap[continentName]
+
+  fetchCountriesFromContinent(continentCode)
   .then((allCountriesCodes) => {
     let randomCountriesCodes = getRandomElements(allCountriesCodes, numberOfCountries)
     let countriesNames = randomCountriesCodes.map((country) => {return country.name})
     return countriesNames.sort()
   })
   .then((countries) => {
-    countries.forEach((country) => {
-      let url = `https://restcountries.com/v3.1/name/${country}?fullText=true`
-      fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        cards.innerHTML += `
-        <div class="card">
-          <img src="${data[0].flags.svg}" class="flag-img">
-          <h4>${data[0].name.common}</h4>
-          <div class="data-wrapper">
-            <h5>Official Name:</h5>
-            <span>${data[0].name.official}</span>
-          </div>
-          <div class="data-wrapper">
-            <h5>Capital:</h5>
-            <span>${data[0].capital[0]}</span>
-          </div>
-          <div class="data-wrapper">
-            <h5>Population:</h5>
-            <span>${data[0].population}</span>
-          </div>
-          <div class="data-wrapper">
-            <h5>Currency:</h5>
-            <span>
-              ${Object.keys(data[0].currencies)[0]}
-            </span>
-          </div>
-          <div class="data-wrapper">
-            <h5>Subregion:</h5>
-            <span>${data[0].subregion}</span>
-          </div>
-          <div class="data-wrapper">
-            <h5>Languages:</h5>
-            <span>${Object.values(data[0].languages)
-              .toString()
-              .split(",")
-              .join(", ")}
-            </span>
-          </div>
-        </div>
-      `
-      })
-    })
+    makeCountriesCards(countries)
   })
 })
